@@ -1,0 +1,82 @@
+pendiente
+Search
+- image: southamerica-east1-docker.pkg.dev/server-main-422100/imagesregistry/main-server:latest
+
+# filter de errores
+sudo tail -f /var/log/cloud-init-output.log
+sudo tail -f /var/log/cloud-init-output.log | grep -i error
+
+# create env file s3 bucket
+ `zip env-file.zip .env.develop`
+# upload env-file.zip on s3
+ ` aws --region us-west-2 s3 cp env-file.zip s3://yebaam-env-files/backend/develop/ `
+
+
+ # create zip chatapp.zip -r .
+aws --region us-west-2 s3 cp chatapp.zip s3://yebaam-server-default-app
+
+# install redis on ec2
+ sudo yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
+  sudo yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+
+ sudo yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
+  sudo yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+
+  ## sudo yum install gcc
+  ## wget http://download.redis.io/redis-stable.tar.gz
+  ## tar xvzf redis-stable.tar.gz
+  ## cd redis-stable
+  ## make
+
+# veritfy if is correct
+ " src/redis-cli -c -h yebaam-server-default-redis.gfodsh.ng.0001.usw2.cache.amazonaws.com -p 6379  >  KEYS * "
+yebaam-server-default-redis.gfodsh.ng.0001.usw2.cache.amazonaws.com:6379
+
+
+aws deploy create-deployment \
+    --region us-west-2 \
+    --application-name chatapp-server-default-app\
+    --deployment-config-name CodeDeployDefault.AllAtOnce \
+    --file-exists-behavior "OVERWRITE" \
+    --deployment-group-name chatapp-server-default-group \
+    --s3-location bucket=chatapp-server-added-default-app,bundleType=zip,key=chatapp.zip
+
+
+
+ aws --region us-west-2 s3 cp env-file.zip s3://chattyapp-env-files/develop/
+ aws --region us-west-2 s3 cp chatapp.zip s3://chatapp-defaul-app
+
+
+## commander redis
+ GET bull:user:stalled-check
+
+ #install redis-commander ec2
+ sudo npm i -g redis-commander
+
+ sudo redis-commander --redis-host yebaam-server-default-redis.gfodsh.ng.0001.usw2.cache.amazonaws.com --redis-port 6379
+
+
+
+ /conexion facebook
+ /conexion google
+/filter with integration on search general
+
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "northamerica-northeast1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main",
+        "-f",
+        "Dockerfile",
+        "--platform=linux/amd64",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "northamerica-northeast1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main",
+      ]

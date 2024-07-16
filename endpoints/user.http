@@ -1,0 +1,186 @@
+@baseUrl = http://localhost:4000
+@urlPath = api/v1
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/all/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/65557b2d7cbbe4a799371f8e
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/posts/Flower/65556f75fd79a8a60049094d/219256572794
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/user/suggestions
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/search/Lew
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/change-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "currentPassword": "qwerty",
+  "newPassword": "qwerty1",
+  "confirmPassword": "qwerty1"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/basic-info
+content-type: application/json
+Accept: 'application/json'
+withCredentials: true
+
+{
+  "quote": "Tomorrow is a mystery. Today is a gift. That's why we call it The Present",
+  "work": "",
+  "school": "Taltech",
+  "location": "Dusseldorf, Germany"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/social-links
+content-type: application/json
+Accept: 'application/json'
+withCredentials: true
+
+{
+  "instagram": "",
+  "twitter": "",
+  "facebook": "https://www.facebook.com/gitlab",
+  "youtube": "https://www.youtube.com/watch?v=i1o9HMGaWxM"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/profile/settings
+content-type: application/json
+Accept: 'application/json'
+withCredentials: true
+
+{
+  "messages": false,
+  "reactions": true,
+  "comments": false,
+  "follows": true
+}
+
+
+### Enviar solicitud de amistad
+POST {{baseUrl}}/{{urlPath}}/user/friend/send
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "senderId": "66373745326e8507386cfddf", 
+  "receiverId": "663653e358aab52281f87d44" 
+}
+
+
+### Aceptar solicitud de amistad
+PUT {{baseUrl}}/{{urlPath}}/user/friend/accept
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "senderId": "6543210abcde12345fghijkl", 
+  "receiverId": "1234567890abcdef12345678"
+}
+
+
+### Rechazar solicitud de amistad
+PUT {{baseUrl}}/{{urlPath}}/user/friend/reject
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "senderId": "6543210abcde12345fghijkl", 
+  "receiverId": "1234567890abcdef12345678" 
+}
+
+
+### Cancelar solicitud de amistad
+DELETE {{baseUrl}}/{{urlPath}}/user/friend/cancel
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "senderId": "6543210abcde12345fghijkl",  
+  "receiverId": "1234567890abcdef12345678" 
+}
+
+
+### Obtener solicitudes de amistad pendientes
+GET {{baseUrl}}/{{urlPath}}/user/friend/pending/663653e358aab52281f87d44
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+### Obtener lista de amigos
+GET {{baseUrl}}/{{urlPath}}/user/friend/list/663653e358aab52281f87d44
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+### update de basic-infoPUT 
+{{baseUrl}}/{{urlPath}}/user/profile/basic-info
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "quote": "Tomorrow is a mystery. Today is a gift. That's why we call it The Present",
+  "work": "Software Engineer",
+  "school": "Taltech",
+  "location": "Dusseldorf, Germany",
+  "residendencia": {
+    "ciudad": "Berlin",
+    "pais": "Germany"
+  },
+  "preferences": {
+    "notificationSound": true,
+    "darkMode": false,
+    "language": "en"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/gitlab",
+    "instagram": "https://www.instagram.com/",
+    "twitter": "https://twitter.com/",
+    "youtube": "https://www.youtube.com/"
+  },
+  "acontecimientos": [
+    {
+      "id": "1",
+      "titulo": "Graduación",
+      "descripcion": "Graduación en la universidad",
+      "fecha": "2022-12-10T00:00:00Z"
+    }
+  ],
+  "relacion": {
+    "tipo": "Amigo",
+    "nombre": "Juan"
+  }
+}

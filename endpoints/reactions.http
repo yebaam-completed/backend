@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userTo": "654ccb3e053e3158acd8d03b",
+  "postId": "654d0a6b4c074e92d63449de",
+  "type": "love",
+  "previousReaction": "",
+  "postReactions": {"like": 0,"love": 0,"happy": 0,"sad": 1,"wow": 0,"angry": 0},
+  "profilePicture": "https://res.cloudinary.com/dzqpacupf/image/upload/v1659189696/62e539c0d8b514f6e42e3b5b"
+}
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/62ed227827461b3ece2d6f25/sad/{"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 0,"angry": 0}
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/62ed227827461b3ece2d6f25
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/Flower/62ea82366d7191261d4ff0de
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/Flower
+Content-Type: application/json
+Accept: application/json
+withCredentials: true

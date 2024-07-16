@@ -1,0 +1,205 @@
+1. crear el proyecto
+2. Google Container Registry API
+3. Crear repositorio
+4. Instrucciones de configuración (gcloud auth configure-docker \
+    southamerica-east1-docker.pkg.dev)
+
+5. python --version   Python 3.12.3
+gcloud version
+Google Cloud SDK 474.0.0
+beta 2024.04.26
+bq 2.1.4
+core 2024.04.26
+gcloud-crc32c 1.0.0
+gsutil 5.27
+
+
+6.gcloud init
+Welcome! This command will take you through the configuration of gcloud.
+
+Settings from your current configuration [default] are:
+accessibility:
+  screen_reader: 'True'
+core:
+  account: jimocano@gmail.com
+  disable_usage_reporting: 'False'
+
+Pick configuration to use:
+ [1] Re-initialize this configuration [default] with new settings
+ [2] Create a new configuration
+Please enter your numeric choice:  1
+
+Your current configuration has been set to: [default]
+
+You can skip diagnostics next time by using the following flag:
+  gcloud init --skip-diagnostics
+
+Network diagnostic detects and fixes local network connection issues.
+Checking network connection...done.
+Reachability Check passed.
+Network diagnostic passed (1/1 checks passed).
+
+Choose the account you would like to use to perform operations for this configuration:
+ [1] jimocano@gmail.com
+ [2] Log in with a new account
+Please enter your numeric choice:  1
+
+You are logged in as: [jimocano@gmail.com].
+
+Pick cloud project to use:
+ [1] server-main-422100
+ [2] trans-name-422100-h3
+ [3] Enter a project ID
+ [4] Create a new project
+
+
+## FASE PARA SUBIR LAS IMAGENES A LA CLOUD
+
+8.[URL] A: comando: docker build -f Dockerfile.dev -t  server-main .
+	B: southamerica-east1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main
+	C: docker build -f Dockerfile.dev -t  southamerica-east1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main .
+	D: gcloud auth login
+	C: gcloud auth configure-docker southamerica-east1-docker.pkg.dev
+	E:docker push southamerica-east1-docker.pkg.dev/server-main-422100/imagesregistry/server-main:latest
+
+FASE CD CE CI
+
+9. Cloud Build API
+	A:cloudbuild.yml {
+steps:
+   - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "XXXXX-docker.pkg.dev/project-name/registry/image-name",
+        "-f",
+        "dockerfile.prod",
+        "--platform=linux/amd64",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "XXXXX-docker.pkg.dev/project-name/registry/image-name",
+      ]
+
+esta reciente steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "southamerica-east1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main",
+        "-f",
+        "Dockerfile",
+        "--platform=linux/amd64",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "southamerica-east1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main",
+      ]
+
+
+
+}
+	B: Activadores (CREAR)
+	C: Evento (Enviar a una rama o Enviar etiqueta nueva )
+
+
+  SECCION DE DARLE PERMISOS A LAS ENVS SECRETOS
+
+  1. gcloud config get-value project
+  2 . gcloud projects add-iam-policy-binding server-main-422100 --member='serviceAccount:784430514655@cloudbuild.gserviceaccount.com' --role='roles/secretmanager.secretAccessor'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - |
+        docker build -t southamerica-east1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main \
+          -f Dockerfile --platform=linux/amd64 \
+          --build-arg PORT=$$PORT \
+          --build-arg DATABASE_URL=$$DATABASE_URL \
+          --build-arg JWT_TOKEN=$$JWT_TOKEN \
+          --build-arg NODE_ENV=$$NODE_ENV \
+          --build-arg SECRET_KEY_ONE=$$SECRET_KEY_ONE \
+          --build-arg SECRET_KEY_TWO=$$SECRET_KEY_TWO \
+          --build-arg CLIENT_URL=$$CLIENT_URL \
+          --build-arg REDIS_HOST=$$REDIS_HOST \
+          --build-arg CLOUD_NAME=$$CLOUD_NAME \
+          --build-arg CLOUD_API_KEY=$$CLOUD_API_KEY \
+          --build-arg CLOUD_API_SECRET=$$CLOUD_API_SECRET \
+          --build-arg SENDER_EMAIL=$$SENDER_EMAIL \
+          --build-arg SENDER_EMAIL_PASSWORD=$$SENDER_EMAIL_PASSWORD \
+          --build-arg SENDGRID_API_KEY=$$SENDGRID_API_KEY \
+          --build-arg SENDGRID_SENDER=$$SENDGRID_SENDER .
+    secretEnv: ['PORT', 'DATABASE_URL', 'JWT_TOKEN', 'NODE_ENV', 'SECRET_KEY_ONE', 'SECRET_KEY_TWO', 'CLIENT_URL', 'REDIS_HOST', 'CLOUD_NAME', 'CLOUD_API_KEY', 'CLOUD_API_SECRET', 'SENDER_EMAIL', 'SENDER_EMAIL_PASSWORD', 'SENDGRID_API_KEY', 'SENDGRID_SENDER']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'southamerica-east1-docker.pkg.dev/server-main-422100/main-server-images-repository/server-main',
+      ]
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/784430514655/secrets/PORT/versions/1
+      env: 'PORT'
+    - versionName: projects/784430514655/secrets/DATABASE_URL/versions/1
+      env: 'DATABASE_URL'
+    - versionName: projects/784430514655/secrets/JWT_TOKEN/versions/1
+      env: 'JWT_TOKEN'
+    - versionName: projects/784430514655/secrets/NODE_ENV/versions/1
+      env: 'NODE_ENV'
+    - versionName: projects/784430514655/secrets/SECRET_KEY_ONE/versions/1
+      env: 'SECRET_KEY_ONE'
+    - versionName: projects/784430514655/secrets/SECRET_KEY_TWO/versions/1
+      env: 'SECRET_KEY_TWO'
+    - versionName: projects/784430514655/secrets/CLIENT_URL/versions/1
+      env: 'CLIENT_URL'
+    - versionName: projects/784430514655/secrets/REDIS_HOST/versions/1
+      env: 'REDIS_HOST'
+    - versionName: projects/784430514655/secrets/CLOUD_NAME/versions/1
+      env: 'CLOUD_NAME'
+    - versionName: projects/784430514655/secrets/CLOUD_API_KEY/versions/1
+      env: 'CLOUD_API_KEY'
+    - versionName: projects/784430514655/secrets/CLOUD_API_SECRET/versions/1
+      env: 'CLOUD_API_SECRET'
+    - versionName: projects/784430514655/secrets/SENDER_EMAIL/versions/1
+      env: 'SENDER_EMAIL'
+    - versionName: projects/784430514655/secrets/SENDER_EMAIL_PASSWORD/versions/1
+      env: 'SENDER_EMAIL_PASSWORD'
+    - versionName: projects/784430514655/secrets/SENDGRID_API_KEY/versions/1
+      env: 'SENDGRID_API_KEY'
+    - versionName: projects/784430514655/secrets/SENDGRID_SENDER/versions/1
+      env: 'SENDGRID_SENDER'

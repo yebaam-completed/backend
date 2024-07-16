@@ -1,0 +1,59 @@
+
+version: '3.9'
+services:
+  redis:
+    container_name: redis_container
+    image: redis:alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --loglevel warning
+    volumes:
+      - ./docker-volumes/cache:/data
+  
+  redis-commander:
+    container_name: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    ports:
+      - '8081:8081'
+    environment:
+    - REDIS_HOSTS=local:redis_container:6379
+  
+  mongodb:
+    container_name: mongodb_container
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./docker-volumes/data:/data/db
+
+  server:
+    container_name: server_container
+    image: southamerica-east1-docker.pkg.dev/server-main-422100/imagesregistry/main-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4000:4000
+    env_file: .env
+    environment:
+        - PORT=4000
+        - DATABASE_URL=mongodb://mongodb_container:27017/db_develop
+        - JWT_TOKEN=mamasita
+        - NODE_ENV=development
+        - SECRET_KEY_ONE=1282722b942e08c8a6cb033aa6ce850e
+        - SECRET_KEY_TWO=8db8f85991bb28f45ac0107f2a1b349c
+        - CLIENT_URL=http://localhost:3000
+        - REDIS_HOST=redis://redis_container:6379
+        - CLOUD_NAME=dzqpacupf
+        - CLOUD_API_KEY=372698151483913
+        - CLOUD_API_SECRET=jOQuZp4KIMI_4PhXlG5Z-QNSqVE
+        - SENDGRID_SENDER=wuO5y0VhTpuvP025l9-VUQ
+        - SENDER_EMAIL_PASSWORD=kRY8BSGYC1t8R32Gwx
+        - SENDGRID_API_KEY=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
+        - SENDER_EMAIL=pansy.lemke@ethereal.email
+
+

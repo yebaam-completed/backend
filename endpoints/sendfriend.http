@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/send
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "receiverId": "655d4598e9c556061ea33838"
+}
+###
+POST {{baseUrl}}/{{urlPath}}/accept/6560f66f97201779c2c7411a
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+POST {{baseUrl}}/{{urlPath}}/reject/
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "senderId": "ID_DEL_USUARIO_QUE_ENVIA",
+  "receiverId": "ID_DEL_USUARIO_QUE_RECIBE"
+}

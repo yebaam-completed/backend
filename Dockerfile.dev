@@ -1,0 +1,30 @@
+# Usar una imagen base de Node.js con Alpine Linux
+FROM node:21-alpine3.18
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Instalar Python, herramientas de construcción y las bibliotecas necesarias para canvas
+# Utilizamos pkgconf en lugar de pkg-config ya que es el que está disponible en Alpine 3.18
+RUN apk add --no-cache python3 make g++ pkgconf \
+    && apk add --no-cache pixman-dev cairo-dev pango-dev jpeg-dev giflib-dev \
+    && ln -sf python3 /usr/bin/python
+
+# Copiar archivos necesarios para la instalación de npm
+COPY package.json ./
+COPY tsconfig.json ./
+
+# Copiar el código fuente
+COPY src ./src
+
+# Instalar dependencias
+RUN npm install
+
+# Instalar nodemon globalmente
+RUN npm install -g nodemon
+
+# Exponer el puerto que la aplicación usará
+EXPOSE 4000
+
+# Comando para ejecutar la aplicación en modo desarrollo
+CMD ["npm", "run", "dev"]
