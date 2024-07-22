@@ -6,7 +6,7 @@ import { fileDocumentMock, imagesMockRequest, imagesMockResponse } from '@root/m
 import { imageQueue } from '@service/queues/image.queue';
 import { Delete } from '@image/controllers/delete-image';
 import { imageService } from '@service/db/image.service';
-import { UserCache } from '@service/redis/user.cache';
+import { UserCache } from '@user/redis/user.cache';
 
 jest.useFakeTimers();
 jest.mock('@service/queues/base.queue');

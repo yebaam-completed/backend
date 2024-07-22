@@ -6,7 +6,7 @@ import { imagesMockRequest, imagesMockResponse } from '@root/mocks/image.mock';
 import { Add } from '@image/controllers/add-image';
 import { CustomError } from '@globals/helpers/error-handler';
 import { authUserPayload } from '@root/mocks/auth.mock';
-import { UserCache } from '@service/redis/user.cache';
+import { UserCache } from '@user/redis/user.cache';
 import { existingUser } from '@root/mocks/user.mock';
 import { imageQueue } from '@service/queues/image.queue';
 import * as cloudinaryUploads from '@globals/helpers/cloudinary-upload';

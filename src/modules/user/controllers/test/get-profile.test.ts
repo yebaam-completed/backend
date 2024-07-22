@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Request, Response } from 'express';
 import { authMockRequest, authMockResponse, authUserPayload } from '@root/mocks/auth.mock';
-import { UserCache } from '@service/redis/user.cache';
+import { UserCache } from '@user/redis/user.cache';
 import { FollowerCache } from '@service/redis/follower.cache';
 import { existingUser } from '@root/mocks/user.mock';
 import { Get } from '@user/controllers/get-profile';

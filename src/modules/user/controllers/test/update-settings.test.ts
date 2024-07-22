@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { authUserPayload, authMockRequest, authMockResponse } from '@root/mocks/auth.mock';
 import { UpdateSettings } from '@user/controllers/update-settings';
-import { UserCache } from '@service/redis/user.cache';
+import { UserCache } from '@user/redis/user.cache';
 import { userQueue } from '@user/queue/user.queue';
 
 jest.useFakeTimers();

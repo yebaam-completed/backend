@@ -10,7 +10,7 @@ import { MessageCache } from '@service/redis/message.cache';
 import { emailQueue } from '@service/queues/email.queue';
 import { existingUser, existingUserTwo } from '@root/mocks/user.mock';
 import { notificationTemplate } from '@service/emails/templates/notifications/notification-template';
-import { UserCache } from '@service/redis/user.cache';
+import { UserCache } from '@user/redis/user.cache';
 
 jest.useFakeTimers();
 jest.mock('@service/queues/base.queue');

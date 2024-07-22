@@ -5,7 +5,7 @@ import { CustomError } from '@globals/helpers/error-handler';
 import { SignIn } from '@auth/controllers/signin';
 import { Helpers } from '@globals/helpers/helpers';
 import { authService } from '@service/db/auth.service';
-import { userService } from '@service/db/user.service';
+import { userService } from '@user/services/user.service';
 import { mergedAuthAndUserData } from '@root/mocks/user.mock';
 
 const USERNAME = 'Manny';

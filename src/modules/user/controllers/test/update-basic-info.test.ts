@@ -3,7 +3,7 @@ import { authUserPayload, authMockRequest, authMockResponse } from '@root/mocks/
 import { Server } from 'socket.io';
 import * as userServer from '@user/socket/user';
 import { Edit } from '@user/controllers/update-basic-info';
-import { UserCache } from '@service/redis/user.cache';
+import { UserCache } from '@user/redis/user.cache';
 import { userQueue } from '@user/queue/user.queue';
 
 jest.useFakeTimers();

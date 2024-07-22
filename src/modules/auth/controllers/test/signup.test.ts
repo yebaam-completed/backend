@@ -5,7 +5,7 @@ import { SignUp } from '@auth/controllers/signup';
 import { CustomError } from '@globals/helpers/error-handler';
 import { authMock, authMockRequest, authMockResponse } from '@root/mocks/auth.mock';
 import { authService } from '@service/db/auth.service';
-import { UserCache } from '@service/redis/user.cache';
+import { UserCache } from '@user/redis/user.cache';
 
 jest.useFakeTimers();
 jest.mock('@service/queues/base.queue');
