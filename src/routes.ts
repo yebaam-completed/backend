@@ -14,6 +14,8 @@ import { healthRoutes } from '@user/routes/healthRoutes';
 import { userRoutes } from '@user/routes/userRoutes';
 import { Application } from 'express';
 import { sendFriendRoutes } from './modules/sendfriend/routes/sendfriendRoutes';
+import { blogRoutes } from './modules/blog/routes/blog.routes';
+import { storyRoutes } from './modules/histories/routes/story.routes';
 
 const BASE_PATH = '/api/v1';
 
@@ -40,6 +42,10 @@ export default (app: Application) => {
     app.use(BASE_PATH, authMiddleware.verifyUser, imageRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, chatRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, userRoutes.routes());
+
+    // 
+    app.use(BASE_PATH, authMiddleware.verifyUser, storyRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, blogRoutes.routes());
   };
   routes();
 };

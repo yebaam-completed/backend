@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/blog
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "title": "Mi primer blog",
+  "content": "Este es el contenido de mi primer blogd",
+  "tags": ["inicial", "blog"]
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/blog/image
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "title": "Blog con imagen",
+  "content": "Contenido del blog con imagen",
+  "tags": ["imagen", "blog"],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAAMyAQMAAABtkHM/AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAf8CLd4AAABrSURBVBgZ7cGBAAAAAMOg+1NP4AjVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjgBSwwABwrL8wAAAAABJRU5ErkJggg=="
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/blog/all/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/blog/images/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/blog/66b36af8660fa4b522ec32ea
+Content-Type: application/json
+Accept: application/json
+withCredentials: true

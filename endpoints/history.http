@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/story
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "content": "Esta es mi primera historia cuatar"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/story/image
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "content": "Historia con imagen creada",
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAAMyAQMAAABtkHM/AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAf8CLd4AAABrSURBVBgZ7cGBAAAAAMOg+1NP4AjVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjgBSwwABwrL8wAAAAABJRU5ErkJggg=="
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/stories/all/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/stories/images/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/story/66b36af8660fa4b522ec32ea
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
