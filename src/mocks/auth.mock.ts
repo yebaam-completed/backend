@@ -52,6 +52,7 @@ export const authUserPayload: AuthPayload = {
   username: 'Manny',
   email: 'manny@me.com',
   avatarColor: '#9c27b0',
+  profilePicture: '',
   iat: 12345
 };
 
