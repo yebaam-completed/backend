@@ -1,0 +1,72 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/friend-request
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "receiverId": "66b7e6a23d27ae86941c2941"
+}
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/user/profile/66b7e6a23d27ae86941c2941
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+###
+PUT {{baseUrl}}/{{urlPath}}/friend-request/accept/66b7e7cb3d27ae86941c297c
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+
+PUT {{baseUrl}}/{{urlPath}}/friend-request/reject/66b6cb06e24454d177d1004d
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+
+DELETE {{baseUrl}}/{{urlPath}}/friend-request/cancel/66b6cb06e24454d177d1004d
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/friend-requests
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/friends
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/non-friends
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+# non-friends
+###
+GET {{baseUrl}}/{{urlPath}}/friend-request/66b6cb06e24454d177d1004d/status
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+
+DELETE {{baseUrl}}/{{urlPath}}/friend/669dc0acb2298eec8069a3d3
+Content-Type: application/json
+Accept: application/json
+withCredentials: true

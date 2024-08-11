@@ -1,6 +1,6 @@
+import { friendRequestSchema } from '@root/modules/sendfriend/models/sendfriend.schema';
 import { IUserDocument } from '@user/interfaces/user.interface';
 import mongoose, { model, Model, Schema } from 'mongoose';
-import { friendRequestSchema } from './friendRequestSchema';
 
 const userSchema: Schema = new Schema({
   authId: { type: mongoose.Schema.Types.ObjectId, ref: 'Auth', index: true },
@@ -112,8 +112,8 @@ const userSchema: Schema = new Schema({
       }
     },
       // Campo para solicitudes de amistad
-      friendRequests: { type: [friendRequestSchema], default: [] },
-      friends: { type: [String], default: [] },
+      friendRequests: { type: [friendRequestSchema], default: [] }, // Utiliza el esquema en lugar del modelo
+      friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Asegúrate de que esto esté definido correctamente
 
   friendsCount: { type: Number, default: 0 },
   reels: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reel' }],

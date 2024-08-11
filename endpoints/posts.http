@@ -8,7 +8,7 @@ Accept: application/json
 withCredentials: true
 
 {
-  "post": "This is my primer post flower",
+  "post": "This is my primer bydi",
   "bgColor": "#ffffff",
   "privacy": "Public",
   "gifUrl": "",
@@ -55,10 +55,72 @@ Accept: application/json
 withCredentials: true
 
 ###
+GET {{baseUrl}}/{{urlPath}}/post/66b6cb06e24454d177d1004d
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/user/669dc0acb2298eec8069a3d3
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/66b6cb06e24454d177d1004d/like
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/66b6cb06e24454d177d1004d/comment
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "comment": "Este es mi comentario de prueba"
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/me/yo
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/post-me/search?searchTerm=camila
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+###
+PUT {{baseUrl}}/{{urlPath}}/post/report/66b6cb06e24454d177d1004d
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/popular/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+
+
+###
 GET {{baseUrl}}/{{urlPath}}/post/images/1
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
+
+
 
 ###
 GET {{baseUrl}}/{{urlPath}}/post/videos/1

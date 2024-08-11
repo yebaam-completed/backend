@@ -13,9 +13,9 @@ import { serverAdapter } from '@service/queues/base.queue';
 import { healthRoutes } from '@user/routes/healthRoutes';
 import { userRoutes } from '@user/routes/userRoutes';
 import { Application } from 'express';
-import { sendFriendRoutes } from './modules/sendfriend/routes/sendfriendRoutes';
 import { blogRoutes } from './modules/blog/routes/blog.routes';
 import { storyRoutes } from './modules/histories/routes/story.routes';
+import { friendRequestRoutes } from './modules/sendfriend/routes/routes';
 
 const BASE_PATH = '/api/v1';
 
@@ -36,7 +36,7 @@ export default (app: Application) => {
     app.use(BASE_PATH, authMiddleware.verifyUser, reactionRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, commentRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, followerRoutes.routes());
-    app.use(BASE_PATH, authMiddleware.verifyUser, sendFriendRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, friendRequestRoutes.routes());
 
     app.use(BASE_PATH, authMiddleware.verifyUser, notificationRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, imageRoutes.routes());

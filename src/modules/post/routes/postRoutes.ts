@@ -17,6 +17,8 @@ class PostRoutes {
     this.router.get('/post/images/:page', authMiddleware.checkAuthentication, Get.prototype.postsWithImages);
     this.router.get('/post/videos/:page', authMiddleware.checkAuthentication, Get.prototype.postsWithVideos);
 
+
+
     this.router.post('/post', authMiddleware.checkAuthentication, Create.prototype.post);
     this.router.post('/post/image/post', authMiddleware.checkAuthentication, Create.prototype.postWithImage);
     this.router.post('/post/video/post', authMiddleware.checkAuthentication, Create.prototype.postWithVideo);
@@ -26,6 +28,26 @@ class PostRoutes {
     this.router.put('/post/video/:postId', authMiddleware.checkAuthentication, Update.prototype.postWithVideo);
 
     this.router.delete('/post/:postId', authMiddleware.checkAuthentication, Delete.prototype.post);
+
+
+
+
+
+      // 
+      this.router.get('/post/:postId', authMiddleware.checkAuthentication,Get.prototype.postById);
+      this.router.post('/post/:postId/like', authMiddleware.checkAuthentication,Get.prototype.addLike);
+      this.router.post('/post/:postId/comment', authMiddleware.checkAuthentication,Get.prototype.addComment);
+      this.router.get('/post/user/:userId', authMiddleware.checkAuthentication, Get.prototype.getPostsByUser);
+      this.router.get('/post/me/yo', authMiddleware.checkAuthentication,Get.prototype.getUserPosts);
+
+      this.router.get('/post-me/search', authMiddleware.checkAuthentication,Get.prototype.searchPosts);
+      this.router.put('/post/report/:postId', authMiddleware.checkAuthentication,Get.prototype.reportPost);
+      this.router.get('/post/popular/:page', authMiddleware.checkAuthentication,Get.prototype.getPopularPosts);
+
+
+
+
+
 
     return this.router;
   }

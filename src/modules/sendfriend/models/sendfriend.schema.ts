@@ -14,4 +14,4 @@ const FriendRequestModel: Model<IFriendRequestDocument> = model<IFriendRequestDo
   friendRequestSchema,
   'FriendRequest'
 );
-export { FriendRequestModel };
+export { FriendRequestModel,friendRequestSchema };

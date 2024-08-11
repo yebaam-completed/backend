@@ -21,7 +21,20 @@ export interface IPostDocument extends Document {
   privacy?: string;
   reactions?: IReactions;
   createdAt?: Date;
+  updatedAt?: Date;
+  postLocation?: string; 
+  hashtags?: string[];
+  allowedUsers?: mongoose.Types.ObjectId[];
+  visibilityGroup?: string;
+  mentionedUsers?: mongoose.Types.ObjectId[];
+  isDistributed?: boolean;
+  tags?: string[];
+  interactionScore?: number;
+  isCached?: boolean;
+  deleted?: boolean;
+  reported?: number;
 }
+
 
 export interface IGetPostsQuery {
   _id?: ObjectId | string;
