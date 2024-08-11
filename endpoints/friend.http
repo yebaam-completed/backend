@@ -20,7 +20,7 @@ withCredentials: true
 
 
 ###
-PUT {{baseUrl}}/{{urlPath}}/friend-request/accept/66b7e7cb3d27ae86941c297c
+PUT {{baseUrl}}/{{urlPath}}/friend-request/accept/66b80423826cc4ccfa302812
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
@@ -53,10 +53,12 @@ Accept: application/json
 withCredentials: true
 
 ###
-GET {{baseUrl}}/{{urlPath}}/non-friends
+GET {{baseUrl}}/{{urlPath}}/user/non-friends
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
+
+
 # non-friends
 ###
 GET {{baseUrl}}/{{urlPath}}/friend-request/66b6cb06e24454d177d1004d/status

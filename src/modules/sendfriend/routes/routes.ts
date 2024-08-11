@@ -24,7 +24,7 @@ class FriendRequestRoutes {
     // cambiar este, y pasarlo el comtrolador del user
     this.router.get('/user/profile/:userId', authMiddleware.checkAuthentication, friendRequestController.getUserProfile);
     this.router.get('/friends', authMiddleware.checkAuthentication, friendRequestController.getFriends);
-    this.router.get('/non-friends', authMiddleware.checkAuthentication, friendRequestController.getNonFriends);
+    this.router.get('/user/non-friends', authMiddleware.checkAuthentication, friendRequestController.getNonFriends);
 
 
     return this.router;
