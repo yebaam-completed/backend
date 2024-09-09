@@ -62,20 +62,21 @@ export class ChatServer {
     );
     app.use(hpp());
     app.use(helmet());
-    // app.use(
-    //   cors({
-    //     origin: function (origin, callback) {
-    //       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-    //         callback(null, true);
-    //       } else {
-    //         callback(new Error('Not allowed by CORS'));
-    //       }
-    //     },
-    //     credentials: true,
-    //     optionsSuccessStatus: 200,
-    //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-    //   })
-    // );
+    app.use(
+      cors({
+        // origin: function (origin, callback) {
+        //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        //     callback(null, true);
+        //   } else {
+        //     callback(new Error('Not allowed by CORS'));
+        //   }
+        // },
+        origin: '*',
+        credentials: false,
+        optionsSuccessStatus: 200,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+      })
+    );
   }
 
   private standardMiddleware(app: Application): void {
