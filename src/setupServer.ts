@@ -28,11 +28,6 @@ import { SocketIOBlogHandler } from '@socket/blog';
 const SERVER_PORT = config.PORT;
 const log: Logger = config.createLogger('server');
 
-  const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:3001'
-  ];
-
 export class ChatServer {
   private app: Application;
 
@@ -64,15 +59,8 @@ export class ChatServer {
     app.use(helmet());
     app.use(
       cors({
-        // origin: function (origin, callback) {
-        //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        //     callback(null, true);
-        //   } else {
-        //     callback(new Error('Not allowed by CORS'));
-        //   }
-        // },
-        origin: '*',
-        credentials: false,
+        origin: 'http://localhost:3001',
+        credentials: true,
         optionsSuccessStatus: 200,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       })
@@ -128,7 +116,7 @@ export class ChatServer {
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const io: Server = new Server(httpServer, {
       cors: {
-        origin: config.CLIENT_URL,
+        origin: 'http://localhost:3001',
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       }
     });
