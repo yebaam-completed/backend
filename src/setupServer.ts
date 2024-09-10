@@ -59,7 +59,7 @@ export class ChatServer {
     app.use(helmet());
     app.use(
       cors({
-        origin: 'http://localhost:3001',
+        origin: 'https://definitive-frontend.onrender.com',
         credentials: true,
         optionsSuccessStatus: 200,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
@@ -116,7 +116,7 @@ export class ChatServer {
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const io: Server = new Server(httpServer, {
       cors: {
-        origin: 'http://localhost:3001',
+        origin: 'https://definitive-frontend.onrender.com',
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       }
     });
