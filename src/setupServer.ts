@@ -28,6 +28,12 @@ import { SocketIOBlogHandler } from '@socket/blog';
 const SERVER_PORT = config.PORT;
 const log: Logger = config.createLogger('server');
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'https://definitive-frontend.onrender.com'
+];
+
 export class ChatServer {
   private app: Application;
 
@@ -59,7 +65,13 @@ export class ChatServer {
     app.use(helmet());
     app.use(
       cors({
-        origin: 'https://definitive-frontend.onrender.com',
+        origin: function (origin, callback) {
+          if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+          } else {
+            callback(new Error('Not allowed by CORS'));
+          }
+        },
         credentials: true,
         optionsSuccessStatus: 200,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
