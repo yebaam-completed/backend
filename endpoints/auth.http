@@ -1,5 +1,5 @@
 
-@baseUrl = http://localhost:5000
+@baseUrl =  https://api.serversocial.xyz
 @urlPath = api/v1
 
 ###
@@ -23,7 +23,7 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username": "camila",
+  "username": "casemiro",
   "password": "dym123"
 }
 
