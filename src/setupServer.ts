@@ -59,6 +59,14 @@ export class ChatServer {
     app.use(helmet());
     app.use(
       cors({
+        // origin: function (origin, callback) {
+        //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        //     callback(null, true);
+        //   } else {
+        //     callback(new Error('Not allowed by CORS'));
+        //   }
+        // },
+        
         origin: config.CLIENT_URL,
         credentials: true,
         optionsSuccessStatus: 200,
