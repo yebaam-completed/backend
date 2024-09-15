@@ -53,26 +53,38 @@ export class ChatServer {
         maxAge: 24 * 7 * 3600000,
         secure: config.NODE_ENV !== 'development', //asi no sale el erorr currente
         // sameSite: 'none' // comentar si lo hago en local
+        sameSite: config.NODE_ENV === 'development' ? 'lax' : 'none' // Permitir cookies cross-site solo en producción
+
       })
     );
     app.use(hpp());
     app.use(helmet());
     app.use(
       cors({
-        // origin: function (origin, callback) {
-        //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        //     callback(null, true);
-        //   } else {
-        //     callback(new Error('Not allowed by CORS'));
-        //   }
-        // },
-        
-        origin: config.CLIENT_URL,
+        origin: config.NODE_ENV === 'development' 
+          ? ['http://localhost:3000', config.CLIENT_URL ?? ''] 
+          : config.CLIENT_URL ?? '',
         credentials: true,
         optionsSuccessStatus: 200,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       })
     );
+    // app.use(
+    //   cors({
+    //     // origin: function (origin, callback) {
+    //     //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    //     //     callback(null, true);
+    //     //   } else {
+    //     //     callback(new Error('Not allowed by CORS'));
+    //     //   }
+    //     // },
+        
+    //     origin: config.CLIENT_URL,
+    //     credentials: true,
+    //     optionsSuccessStatus: 200,
+    //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    //   })
+    // );
   }
 
   private standardMiddleware(app: Application): void {
@@ -124,7 +136,7 @@ export class ChatServer {
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const io: Server = new Server(httpServer, {
       cors: {
-        origin: config.CLIENT_URL,
+        origin: config.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://definitive-frontend.onrender.com',
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       }
     });
