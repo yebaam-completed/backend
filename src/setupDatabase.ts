@@ -5,11 +5,11 @@ import { redisConnection } from '@service/redis/redis.connection';
 import { config } from '@root/config';
 
 const log: Logger = config.createLogger('setupDatabase');
-
+const provisionalDb = 'mongodb+srv://flowermoreno7:SysBF2TutFZ67HPS@cluster0.t0vgg.mongodb.net/db_yebaam';
 export default () => {
   const connect = () => {
     mongoose
-      .connect(`${config.DATABASE_URL}`)
+      .connect(`${provisionalDb}`)
       .then(() => {
         log.info('Successfully connected to database.');
         redisConnection.connect();
