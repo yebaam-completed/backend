@@ -44,48 +44,74 @@ export class ChatServer {
     this.startServer(this.app);
   }
 
+  // private securityMiddleware(app: Application): void {
+  //   app.set('trust proxy', 1);
+  //   app.use(
+  //     cookieSession({
+  //       name: 'session',
+  //       keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
+  //       maxAge: 24 * 7 * 3600000,
+  //       secure: config.NODE_ENV !== 'development', //asi no sale el erorr currente
+  //       // sameSite: 'none' // comentar si lo hago en local
+  //       sameSite: config.NODE_ENV === 'development' ? 'lax' : 'none' // Permitir cookies cross-site solo en producción
+
+  //     })
+  //   );
+  //   app.use(hpp());
+  //   app.use(helmet());
+  //   app.use(
+  //     cors({
+  //       origin: config.NODE_ENV === 'development' 
+  //         ? ['http://localhost:3000', config.CLIENT_URL ?? ''] 
+  //         : config.CLIENT_URL ?? '',
+  //       credentials: true,
+  //       optionsSuccessStatus: 200,
+  //       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  //     })
+  //   );
+  //   // app.use(
+  //   //   cors({
+  //   //     // origin: function (origin, callback) {
+  //   //     //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+  //   //     //     callback(null, true);
+  //   //     //   } else {
+  //   //     //     callback(new Error('Not allowed by CORS'));
+  //   //     //   }
+  //   //     // },
+        
+  //   //     origin: config.CLIENT_URL,
+  //   //     credentials: true,
+  //   //     optionsSuccessStatus: 200,
+  //   //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  //   //   })
+  //   // );
+  // }
   private securityMiddleware(app: Application): void {
     app.set('trust proxy', 1);
     app.use(
       cookieSession({
         name: 'session',
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
-        maxAge: 24 * 7 * 3600000,
-        secure: config.NODE_ENV !== 'development', //asi no sale el erorr currente
-        // sameSite: 'none' // comentar si lo hago en local
+        maxAge: 24 * 7 * 3600000, // 7 días
+        secure: config.NODE_ENV !== 'development', // Las cookies serán seguras en producción (solo se envían por HTTPS)
         sameSite: config.NODE_ENV === 'development' ? 'lax' : 'none' // Permitir cookies cross-site solo en producción
-
       })
     );
+
     app.use(hpp());
     app.use(helmet());
     app.use(
       cors({
-        origin: config.NODE_ENV === 'development' 
-          ? ['http://localhost:3000', config.CLIENT_URL ?? ''] 
-          : config.CLIENT_URL ?? '',
+        origin: config.NODE_ENV === 'development'
+          ? ['http://localhost:3000', config.CLIENT_URL ?? '']
+          : config.CLIENT_URL ?? '', // Aceptar solo la URL de producción en producción
         credentials: true,
         optionsSuccessStatus: 200,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       })
     );
-    // app.use(
-    //   cors({
-    //     // origin: function (origin, callback) {
-    //     //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-    //     //     callback(null, true);
-    //     //   } else {
-    //     //     callback(new Error('Not allowed by CORS'));
-    //     //   }
-    //     // },
-        
-    //     origin: config.CLIENT_URL,
-    //     credentials: true,
-    //     optionsSuccessStatus: 200,
-    //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-    //   })
-    // );
-  }
+}
+
 
   private standardMiddleware(app: Application): void {
     app.use(compression());
