@@ -31,10 +31,9 @@ services:
 
   server:
     container_name: server_container
-    image: southamerica-east1-docker.pkg.dev/server-main-422100/imagesregistry/main-server:latest
-    build:
+    image: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     restart: always
     ports:
       - 4000:4000

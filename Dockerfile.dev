@@ -24,7 +24,7 @@ RUN npm install
 RUN npm install -g nodemon
 
 # Exponer el puerto que la aplicación usará
-EXPOSE 4000
+EXPOSE 5000
 
 # Comando para ejecutar la aplicación en modo desarrollo
 CMD ["npm", "run", "dev"]
