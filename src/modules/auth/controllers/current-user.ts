@@ -45,4 +45,22 @@ export class CurrentUser {
       res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Error fetching current user' });
     }
   }
+
+  
+  public async token(req: Request, res: Response): Promise<void> {
+    let isUser = false;
+    let token = null;
+
+    let user = null;
+    const cachedUser: IUserDocument = (await userCache.getUserFromCache(`${req.currentUser!.username}`)) as IUserDocument;
+    const existingUser: IUserDocument = cachedUser ? cachedUser : await userService.getUserById(`${req.currentUser!.username}`);
+    if (Object.keys(existingUser).length) {
+      isUser = true;
+      token = req.session?.jwt;
+      console.log('user', user);
+      user = existingUser.username;
+      // console.log('first', user);
+    }
+    res.status(HTTP_STATUS.OK).json({ token, isUser, user });
+  }
 }

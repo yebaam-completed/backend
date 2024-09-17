@@ -12,6 +12,7 @@ class CurrentUserRoutes {
 
   public routes(): Router {
     this.router.get('/currentuser', authMiddleware.checkAuthentication, CurrentUser.prototype.read);
+    this.router.get('/refresh-token', authMiddleware.checkAuthentication, CurrentUser.prototype.token);
 
     return this.router;
   }
