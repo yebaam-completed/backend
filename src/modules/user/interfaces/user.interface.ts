@@ -55,7 +55,7 @@ export interface IUserDocument extends Document {
     date: Date;
   }[];
   friends?: string[];
-  createdAt?: Date;
+  createdAt?: Date | null; // <-- Modificación aquí
 }
 
 

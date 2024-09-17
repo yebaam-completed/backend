@@ -22,7 +22,7 @@ class Config {
   public EC2_URL: string | undefined;
   public PORT: string | number;
 
-  private readonly DEFAULT_DATABASE_URL = 'mongodb+srv://flowermoreno7:SysBF2TutFZ67HPS@cluster0.t0vgg.mongodb.net/db_yebaam';
+  private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/chattyapp-backend';
 
   constructor() {
     this.DATABASE_URL = process.env.DATABASE_URL || this.DEFAULT_DATABASE_URL;

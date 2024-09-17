@@ -1,4 +1,4 @@
-@baseUrl =  https://api.serversocial.xyz
+@baseUrl =  http://localhost:5000
 @urlPath = api/v1
 
 ###

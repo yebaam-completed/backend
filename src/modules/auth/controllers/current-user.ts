@@ -8,21 +8,41 @@ const userCache: UserCache = new UserCache();
 
 export class CurrentUser {
   public async read(req: Request, res: Response): Promise<void> {
-    let isUser = false;
-    let token = null;
-    let user = null;
-    // Primero buscar en la base de datos
-    const existingUser: IUserDocument = await userService.getUserById(`${req.currentUser!.userId}`);
-    console.log('existingUser,existingUsermongo',req.currentUser!.userId);
-    // Si no se encuentra en la base de datos, buscar en la caché
-    const cachedUser: IUserDocument = existingUser ? existingUser : (await userCache.getUserFromCache(`${req.currentUser!.userId}`)) as IUserDocument;
-    console.log('cachedUser redis:', req.currentUser!.userId);
+    try {
+      let isUser = false;
+      let token = null;
+      let user = null;
 
-    if (Object.keys(cachedUser).length) {
-      isUser = true;
-      token = req.session?.jwt;
-      user = cachedUser;
+      // Verificar si `userId` existe en la solicitud
+      if (!req.currentUser?.userId) {
+        res.status(HTTP_STATUS.UNAUTHORIZED).json({ message: 'User not authenticated' });
+        return; // Asegúrate de terminar la ejecución de la función
+      }
+
+      const userId = req.currentUser.userId;
+
+      // Obtener el usuario de la caché o de la base de datos
+      const cachedUser: IUserDocument = await userCache.getUserFromCache(userId) as IUserDocument;
+      const existingUser: IUserDocument = cachedUser || await userService.getUserById(userId);
+
+      if (existingUser) {
+        isUser = true;
+        token = req.session?.jwt || null;
+        user = {
+          _id: existingUser._id,
+          username: existingUser.username,
+          email: existingUser.email,
+          avatarColor: existingUser.avatarColor,
+          profilePicture: existingUser.profilePicture,
+          // Añade otros campos necesarios para el frontend
+        };
+      }
+
+      // Respuesta final
+      res.status(HTTP_STATUS.OK).json({ token, isUser, user });
+    } catch (error) {
+      console.error('Error en currentUser:', error);
+      res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Error fetching current user' });
     }
-    res.status(HTTP_STATUS.OK).json({ token, isUser, user });
   }
 }
