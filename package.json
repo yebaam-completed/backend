@@ -4,7 +4,7 @@
   "description": "server social yebaam ",
   "main": "app.js",
   "scripts": {
-    "prestart": "npm install",
+    "prestart": "rm -rf node_modules && npm install",
     "start": "npm run build && npm run start:prod",
     "stop": "pm2 stop all",
     "delete": "pm2 delete all",
