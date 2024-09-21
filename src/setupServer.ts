@@ -10,7 +10,7 @@ import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
 import Logger from 'bunyan';
-import apiStats from 'swagger-stats';
+// import apiStats from 'swagger-stats';
 import 'express-async-errors';
 import { config } from '@root/config';
 import applicationRoutes from '@root/routes';
@@ -39,7 +39,7 @@ export class ChatServer {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
     this.routesMiddleware(this.app);
-    this.apiMonitoring(this.app);
+    // this.apiMonitoring(this.app);
     this.globalErrorHandler(this.app);
     this.startServer(this.app);
   }
@@ -59,7 +59,7 @@ export class ChatServer {
     app.use(helmet());
     app.use(
       cors({
-        origin: 'https://definitive-frontend.onrender.com',
+        origin: config.CLIENT_URL,
         credentials: true,
         optionsSuccessStatus: 200,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
@@ -77,13 +77,13 @@ export class ChatServer {
     applicationRoutes(app);
   }
 
-  private apiMonitoring(app: Application): void {
-    app.use(
-      apiStats.getMiddleware({
-        uriPath: '/api-monitoring'
-      })
-    );
-  }
+  // private apiMonitoring(app: Application): void {
+  //   app.use(
+  //     apiStats.getMiddleware({
+  //       uriPath: '/api-monitoring'
+  //     })
+  //   );
+  // }
 
   private globalErrorHandler(app: Application): void {
     app.all('*', (req: Request, res: Response) => {
@@ -116,7 +116,7 @@ export class ChatServer {
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const io: Server = new Server(httpServer, {
       cors: {
-        origin: 'https://definitive-frontend.onrender.com',
+        origin: config.CLIENT_URL,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       }
     });
