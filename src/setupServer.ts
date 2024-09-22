@@ -25,7 +25,7 @@ import { SocketIOUserHandler } from '@user/socket/user';
 import { SocketIOStoryHandler } from '@socket/storySocket';
 import { SocketIOBlogHandler } from '@socket/blog';
 
-const SERVER_PORT = config.PORT;
+const SERVER_PORT = config.PORT || 8080;
 const log: Logger = config.createLogger('server');
 
 export class ChatServer {
