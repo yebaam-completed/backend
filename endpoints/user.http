@@ -7,8 +7,16 @@ Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
+# busca "_id": "66f2220c3046062cf18e162c",
+
+###  
+GET {{baseUrl}}/{{urlPath}}/user/profile/66f2220c3046062cf18e162c
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
 ###
-GET {{baseUrl}}/{{urlPath}}/user/profile/65557b2d7cbbe4a799371f8e
+GET {{baseUrl}}/{{urlPath}}/user/profile/
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
