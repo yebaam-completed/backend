@@ -52,7 +52,7 @@ export class ChatServer {
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
         maxAge: 24 * 7 * 3600000,
         secure: config.NODE_ENV !== 'development', //asi no sale el erorr currente
-        sameSite: 'none' // comentar si lo hago en local
+        sameSite: 'none' // comentar si lo hago en local ojo en dev
       })
     );
     app.use(hpp());
